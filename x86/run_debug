@@ -1,0 +1,7 @@
+#!/bin/bash
+
+CURR=./listing_0041_add_sub_cmp_jnz
+
+make && \
+make debug && \
+./main $CURR | ./debug

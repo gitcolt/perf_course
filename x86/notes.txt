@@ -1,0 +1,55 @@
+decoding x86 instructions:
+
+[ 1 0 0 0 1 0 | D W ][ mod  reg     r/m   ]
+  _ _ _ _ _ _   _ _    _ _  _ _ _   _ _ _
+
+  mod - memory or register operation
+
+===========================================
+homework:
+
+  d:   0
+  w:   1
+mod:  11 (3)
+reg: 011 (3)
+r/m: 001 (1)
+
+===========================================
+
+R/M field encodes which type of equation we have
+MOD field tells whether we have a displacement
+
+MOD:
+00    01        10
+[...] [... + 8] [... + 16]
+* !!! Even in the 00 case, need to check if R/M field is set to 110,
+if it is, then we have a direct address with 16-byte displacement
+
+
+._________
+| AH | AL | AX
+|____|____|
+| BH | BL | BX
+|____|____|
+| CH | CL | CX
+|____|____|
+| DH | DL | DX
+|____|____|
+|    SP   |
+|_________|
+|    BD   |
+|_________|
+|    SI   |
+|_________|
+|    DI   |
+`----------
+
+word = 2 bytes
+double word = 4 bytes
+
+Homework:
+memory MOV
+immediate to register
+
+Challenge Listing 40
+signed displacements @ p. 83
