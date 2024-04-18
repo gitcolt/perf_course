@@ -7,6 +7,7 @@
 // source includes
 #include "register.c"
 #include "sim.c"
+#include "debug.c"
 
 static u8 *mem;
 
@@ -27,7 +28,7 @@ int main() {
     if (check_version())
         return -1;
 
-    const char *filename = "listing_0043_immediate_movs";
+    const char *filename = "listing_0044_register_movs";
     FILE *f = fopen(filename, "r");
     struct stat bin_stat;
     fstat(fileno(f), &bin_stat);
