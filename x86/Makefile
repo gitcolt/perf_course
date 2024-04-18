@@ -17,6 +17,12 @@ test: test.c
 debug: debug.c
 	$(CC) -o $@ $^
 
+main2: main2.c inst.c
+	$(CC) -o $@ $^ -lm
+
+unit_test: unit_test.c
+	$(CC) -o $@ $^
+
 .PHONY: clean
 clean:
-	rm -f $(TARGET) bin_view debug
+	rm -f $(TARGET) bin_view debug main2 unit_test
