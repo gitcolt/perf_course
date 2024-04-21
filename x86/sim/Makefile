@@ -6,7 +6,7 @@ CC = clang
 all: $(TARGET)
 
 $(TARGET): $(SRCS)
-	$(CC) -o $@ $^
+	$(CC) -g -o $@ $^
 
 .PHONY: clean
 clean:

@@ -7,6 +7,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <assert.h>
+#include <unistd.h>
 
 #define DEBUG 1
 
@@ -58,10 +60,21 @@ void simulate_inst(instruction inst, union RegState *reg_state) {
 
     instruction_operand l_op = inst.Operands[0];
     instruction_operand r_op = inst.Operands[1];
+
+    if (inst.Op == Op_jne) {
+        printf(RED_TXT "JNE \n" RST_COL);
+        u8 eq = flags_read(FLAG_ZERO, reg_state->flags);
+        if (!eq)
+            reg_state->ip += inst.Operands[0].Immediate.Value;
+        return;
+    }
+
     if (inst.Op == Op_mov) {
+        printf(RED_TXT "MOV " RST_COL);
         u16 val = read_src(r_op, reg_state);
         write_dst(l_op, val, reg_state);
     } else if (inst.Op == Op_sub) {
+        printf(RED_TXT "SUB " RST_COL);
         u16 val = read_src(l_op, reg_state);
         u16 val2 = read_src(r_op, reg_state);
         u16 new_val = val - val2;
@@ -70,6 +83,7 @@ void simulate_inst(instruction inst, union RegState *reg_state) {
         flags_set(FLAG_ZERO, (new_val == 0), &reg_state->flags);
         flags_set(FLAG_SIGN, (new_val & 0x8000) >> 15, &reg_state->flags);
     } else if (inst.Op == Op_add) {
+        printf(RED_TXT "ADD " RST_COL);
         u16 val = read_src(l_op, reg_state);
         u16 val2 = read_src(r_op, reg_state);
         u16 new_val = val + val2;
@@ -78,6 +92,7 @@ void simulate_inst(instruction inst, union RegState *reg_state) {
         flags_set(FLAG_ZERO, (new_val == 0), &reg_state->flags);
         flags_set(FLAG_SIGN, (new_val & 0x8000) >> 15, &reg_state->flags);
     } else if (inst.Op == Op_cmp) {
+        printf(RED_TXT "CMP " RST_COL);
         u16 val = read_src(l_op, reg_state);
         u16 val2 = read_src(r_op, reg_state);
         u16 new_val = val - val2;
