@@ -8,6 +8,7 @@
 #include "register.c"
 #include "sim.c"
 #include "debug.c"
+#include "flags.c"
 
 static u8 *mem;
 
@@ -28,7 +29,7 @@ int main() {
     if (check_version())
         return -1;
 
-    const char *filename = "listing_0044_register_movs";
+    const char *filename = "listing_0048_ip_register";
     FILE *f = fopen(filename, "r");
     struct stat bin_stat;
     fstat(fileno(f), &bin_stat);
@@ -40,7 +41,7 @@ int main() {
     u32 offset = 0;
     while (offset < bin_stat.st_size) {
         instruction decoded;
-        Sim86_Decode8086Instruction(sizeof(mem) - offset,
+        Sim86_Decode8086Instruction(bin_stat.st_size - offset,
                                     mem + offset,
                                     &decoded);
         if (decoded.Op) {
@@ -52,6 +53,7 @@ int main() {
         }
         // break;
     }
+    printf("\n");
     print_reg_state(&reg_state);
 
     free(mem);

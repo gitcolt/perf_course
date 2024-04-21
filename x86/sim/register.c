@@ -1,4 +1,5 @@
 #include "register.h"
+#include "flags.h"
 
 #include <stdio.h>
 
@@ -41,12 +42,11 @@ void print_reg_state(union RegState *reg_state) {
                 get_reg_name((register_access){ .Count = 1, .Index = i, .Offset = 1 });
             u8 val8_lo = reg_state->u8[i][0];
             u8 val8_hi = reg_state->u8[i][1];
-            printf("%5s: %d | %s: %d, %s: %d\n",
+            printf("%5s: %5d | %s: %3d, %s: %3d\n",
                     reg16_name, val16, reg8_name_hi, val8_hi, reg8_name_lo, val8_lo);
         } else
-            printf("%5s: %d |\n", reg16_name, val16);
-
-
-
+            printf("%5s: %5d |\n", reg16_name, val16);
     }
+    printf("\n");
+    flags_print(reg_state->flags);
 }

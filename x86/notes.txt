@@ -53,3 +53,6 @@ immediate to register
 
 Challenge Listing 40
 signed displacements @ p. 83
+
+===========================================
+Segment registers point to a 64k logical segment in memory
