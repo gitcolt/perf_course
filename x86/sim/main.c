@@ -29,6 +29,7 @@ int main() {
     if (check_version())
         return -1;
 
+    // const char *filename = "listing_0049_conditional_jumps";
     const char *filename = "listing_0048_ip_register";
     FILE *f = fopen(filename, "r");
     struct stat bin_stat;
@@ -46,7 +47,7 @@ int main() {
                                     &decoded);
         if (decoded.Op) {
             simulate_inst(decoded, &reg_state);
-            offset += decoded.Size;
+            offset = reg_state.ip;
         } else {
             printf("Unrecognized instruction\n");
             break;

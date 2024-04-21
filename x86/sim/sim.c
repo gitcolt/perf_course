@@ -53,6 +53,9 @@ static u16 write_dst(instruction_operand dst, u16 val, union RegState *reg_state
 }
 
 void simulate_inst(instruction inst, union RegState *reg_state) {
+    u16 old_ip = reg_state->ip;
+    reg_state->ip += inst.Size;
+
     instruction_operand l_op = inst.Operands[0];
     instruction_operand r_op = inst.Operands[1];
     if (inst.Op == Op_mov) {
@@ -84,4 +87,6 @@ void simulate_inst(instruction inst, union RegState *reg_state) {
     } else {
         print_err("ERROR [simulate_inst]: Operation not implemented\n");
     }
+
+    printf("ip:0x%x->0x%x\n", old_ip, reg_state->ip);
 }
