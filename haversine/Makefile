@@ -9,6 +9,9 @@ all: $(TARGET)
 $(TARGET): $(SRCS)
 	$(CC) $(CFLAGS) $(LIBS) -o $@ $^
 
+validator: validator.c
+	$(CC) $(CFLAGS) $(LIBS) -o $@ $^
+
 .PHONY: clean
 clean:
 	rm -f $(TARGET) *.json
