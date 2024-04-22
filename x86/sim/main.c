@@ -29,8 +29,7 @@ int main() {
     if (check_version())
         return -1;
 
-    const char *filename = "listing_0049_conditional_jumps";
-    // const char *filename = "listing_0048_ip_register";
+    const char *filename = "listing_0051_memory_mov";
     FILE *f = fopen(filename, "r");
     struct stat bin_stat;
     fstat(fileno(f), &bin_stat);
@@ -46,7 +45,7 @@ int main() {
                                     mem + offset,
                                     &decoded);
         if (decoded.Op) {
-            simulate_inst(decoded, &reg_state);
+            simulate_inst(decoded, &reg_state, mem);
             offset = reg_state.ip;
         } else {
             printf("Unrecognized instruction\n");

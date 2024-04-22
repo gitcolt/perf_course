@@ -5,6 +5,6 @@
 
 #include "sim86_shared.h"
 
-void simulate_inst(instruction inst, union RegState *reg_state);
+void simulate_inst(instruction inst, union RegState *reg_state, u8 *mem);
 
 #endif
